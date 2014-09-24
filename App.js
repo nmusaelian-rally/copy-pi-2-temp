@@ -16,8 +16,7 @@
                     artifactTypes: ['PortfolioItem/Feature','PortfolioItem/Initiative','PortfolioItem/Theme'],
                     autoShow: true,
                     storeConfig:{
-                        fetch: ['Name','PortfolioItemTypeName','Children'] //added 'Children' thinking that may fix Uncaught TypeError: Cannot read property 'isCollection' of undefined
-                        //https://rally1.rallydev.com/slm/doc/webservice/ there is no Children on Features, only on Initiative and Theme
+                        fetch: ['Name','PortfolioItemTypeName'] 
                     },
                     listeners: {
                         artifactChosen: function(selectedRecord) {
@@ -25,7 +24,6 @@
                             this._type = selectedRecord.get('PortfolioItemTypeName');
                             this._newObj = selectedRecord;
                             console.log('this._newObj.data.Children.Count:',this._newObj.data.Children.Count );
-                            //this.onqModelRetrieved(); //does not exist
                             var self = this;
                             Ext.create('Rally.data.wsapi.Store', {
                                 model: 'PortfolioItem/' + selectedRecord.get('PortfolioItemTypeName'),
@@ -84,6 +82,5 @@
             onInnerModelRetrieved: function(model, _childObj ) {
                 console.log("in onInnerModelRetrieved, that._childObj.data.FormattedID:", _childObj.data.FormattedID);
                 this.model = model;
-                //this.genericInnerCopy(model); //Uncaught TypeError: undefined is not a function 
-            },
+            }
 });
